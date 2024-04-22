@@ -1,0 +1,40 @@
+(True, joint_trajectory: 
+  header: 
+    seq: 0
+    stamp: 
+      secs: 0
+      nsecs:         0
+    frame_id: "world"
+  joint_names: 
+    - joint1
+    - joint2
+    - joint3
+    - joint4
+    - joint5
+    - joint6
+  points: 
+    - 
+      positions: [-0.00040045002151956055, 8.68156786912877e-05, -0.00045430810606639227, 0.00014646767886272727, 0.0002279829333886596, 0.00013190905725846136]
+      velocities: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      accelerations: [0.7320897212826716, 0.0, 0.0, 0.0, 0.0, 0.0]
+      effort: []
+      time_from_start: 
+        secs: 0
+        nsecs:         0
+    - 
+      positions: [-3.128472496755422e-05, 2.7305094758048654e-05, -7.82505118753761e-05, -4.11493331193924e-05, -1.5392145700752737e-05, -2.1736628841608732e-06]
+      velocities: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      accelerations: [-0.7320897212826716, 0.11801512008839778, -0.7457577997956504, 0.3720622910461684, 0.48263581512628967, 0.26589872378268453]
+      effort: []
+      time_from_start: 
+        secs: 0
+        nsecs:  31757278
+multi_dof_joint_trajectory: 
+  header: 
+    seq: 0
+    stamp: 
+      secs: 0
+      nsecs:         0
+    frame_id: ''
+  joint_names: []
+  points: [], 0.012433749, val: 1)

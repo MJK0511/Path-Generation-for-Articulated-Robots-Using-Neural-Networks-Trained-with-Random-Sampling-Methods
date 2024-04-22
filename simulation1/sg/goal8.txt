@@ -1,0 +1,49 @@
+header: 
+  seq: 17
+  stamp: 
+    secs: 1041
+    nsecs: 646000000
+  frame_id: ''
+goal_id: 
+  stamp: 
+    secs: 1041
+    nsecs: 646000000
+  id: "/move_group-18-1041.646000000"
+goal: 
+  trajectory: 
+    header: 
+      seq: 0
+      stamp: 
+        secs: 0
+        nsecs:         0
+      frame_id: "world"
+    joint_names: 
+      - joint1
+      - joint2
+      - joint3
+      - joint4
+      - joint5
+      - joint6
+    points: 
+      - 
+        positions: [-1.4131919413201466, 0.1058004722491308, -0.5411087149496927, -0.0012255446032689576, 0.4398420248617523, -1.4088182028028795]
+        velocities: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        accelerations: [-0.9984686401615162, 0.0, 0.0, 0.0, 0.0, 0.0]
+        effort: []
+        time_from_start: 
+          secs: 0
+          nsecs:         0
+      - 
+        positions: [-1.5503078155184435, 0.09332449900813578, -0.5241123008738398, -0.0026111938389518324, 0.43511010861189536, -1.5444907550265115]
+        velocities: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        accelerations: [0.9984686401615162, 0.09084920407255437, -0.12376675238489439, 0.010090205209152278, 0.03445749816334175, 0.987958465918125]
+        effort: []
+        time_from_start: 
+          secs: 0
+          nsecs: 524072838
+  path_tolerance: []
+  goal_tolerance: []
+  goal_time_tolerance: 
+    secs: 0
+    nsecs:         0
+---
