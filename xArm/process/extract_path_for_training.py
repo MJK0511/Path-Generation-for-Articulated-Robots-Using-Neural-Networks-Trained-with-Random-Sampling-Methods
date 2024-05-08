@@ -61,38 +61,13 @@ class extract_middle:
         # After the loop, concatenate all rows to the DataFrame
         self.train_df = pd.concat([self.train_df, pd.DataFrame(all_mid, columns=self.train_columns)], ignore_index=True)
 
-    def test_sg(self, learning_folder):
-        all_sg = []
-            
-        for filename in os.listdir(learning_folder):
-            if filename.endswith('.txt'):
-                file_path = os.path.join(learning_folder, filename)
-
-                with open(file_path, 'r') as file: 
-                    data = file.read()
-                            
-                    # positions 값을 추출할 정규 표현식
-                    pattern = r'positions:\s*(\[.*?\])'
-                    matches = re.findall(pattern, data)
-                        
-                    # positions 값이 3개 이상인 경우만 처리
-                    if len(matches) >= 3:                           
-                        s_list = list(ast.literal_eval(matches[0]))
-                        g_list = list(ast.literal_eval(matches[-1]))
-
-                        sg_data = [tuple(s_list+g_list)]
-                        all_sg.extend(sg_data)
-
-        # After the loop, concatenate all rows to the DataFrame
-        self.test_df = pd.concat([self.test_df, pd.DataFrame(all_sg, columns=self.columns_s+self.columns_g)])
-
     def save_to_csv(self, learning_folder, test_folder, output_path):
         # Training Dataset
         self.extract_middle(learning_folder)
         self.train_df.to_csv(os.path.join(output_path, 'traininginput.csv'), index=False)
 
         # TEST Dataset
-        # self.test_sg(test_folder)
+        self.extract_middle(test_folder)
         self.test_df.to_csv(os.path.join(output_path, 'testinput.csv'), index=False)
 
 # angle 폴더 내의 모든 파일에 대해 반복
