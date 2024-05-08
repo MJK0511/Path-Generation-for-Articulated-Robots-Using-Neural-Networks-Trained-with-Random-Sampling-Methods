@@ -30,7 +30,7 @@ class extract_middle:
             middle_index = matches // 2
         return middle_index
 
-    def extract_middle(self, learning_folder):
+    def extract_middle(self, learning_folder, X):
         m_lists = []
         all_mid = []
 
@@ -57,17 +57,19 @@ class extract_middle:
 
                         all_mid.append(tuple(m_lists))
                         m_lists = []
-
-        # After the loop, concatenate all rows to the DataFrame
-        self.train_df = pd.concat([self.train_df, pd.DataFrame(all_mid, columns=self.train_columns)], ignore_index=True)
+        if X == 0 :
+            # After the loop, concatenate all rows to the DataFrame
+            self.train_df = pd.concat([self.train_df, pd.DataFrame(all_mid, columns=self.train_columns)], ignore_index=True)
+        else :
+            self.test_df = pd.concat([self.test_df, pd.DataFrame(all_mid, columns=self.train_columns)], ignore_index=True)
 
     def save_to_csv(self, learning_folder, test_folder, output_path):
         # Training Dataset
-        self.extract_middle(learning_folder)
+        self.extract_middle(learning_folder, 0)
         self.train_df.to_csv(os.path.join(output_path, 'traininginput.csv'), index=False)
 
         # TEST Dataset
-        self.extract_middle(test_folder)
+        self.extract_middle(test_folder, 1)
         self.test_df.to_csv(os.path.join(output_path, 'testinput.csv'), index=False)
 
 # angle 폴더 내의 모든 파일에 대해 반복
