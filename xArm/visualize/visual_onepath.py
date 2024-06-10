@@ -5,7 +5,8 @@ import ast
 import random
 
 # 任意のファイルのパスを追加
-file_paths = ["/home/nishidalab07/github/6dimension/simulation2/Task/After_train/allpath/path_1_visual.txt"]
+# file_paths = ["/home/nishidalab07/github/Robot_path_planning_with_xArm/simulation1/test/testonepath.txt"]
+file_paths = ["/home/nishidalab07/github/Robot_path_planning_with_xArm/simulation1/test/Task/After_train/testtest.txt"]
 
 # 関数定義
 def set_pose(pose_tuple):

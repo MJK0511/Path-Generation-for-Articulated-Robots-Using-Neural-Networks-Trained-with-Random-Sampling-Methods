@@ -3,7 +3,6 @@ import os
 from visualization_msgs.msg import Marker, MarkerArray
 from geometry_msgs.msg import Pose
 import ast
-import random
 
 class Visual:
 # 関数定義
@@ -18,8 +17,6 @@ class Visual:
         pose.orientation.w = pose_tuple[6]
         return pose
 
-    def generate_random_color(self):
-        return random.uniform(0.0, 1.0), random.uniform(0.0, 1.0), random.uniform(0.0, 1.0)
 
     def visualize_trajectory_points(self, positions_list, filename):
         marker_array = MarkerArray()
@@ -55,7 +52,7 @@ class Visual:
         return marker_array
     
     def visualization(self, default_folder, point):
-        file_path = os.path.join(default_folder, f'Task/After_train/{point}_visual.txt')
+        file_path = os.path.join(default_folder, f'{point}_visual.txt')
         # すべてのファイルから位置が格納されたリストを読み取る
         positions_list = []
         with open(file_path, "r") as file:
@@ -79,6 +76,6 @@ class Visual:
             rospy.spin()
 
 if __name__ == "__main__":
-    default_folder = '/home/nishidalab07/github/6dimension/simulation2'
+    default_folder = '/home/nishidalab07/github/Robot_path_planning_with_xArm/simulation1/test/Task/After_train/middlepath/'
     visualizationMA = Visual()
     visualizationMA.main(default_folder)
