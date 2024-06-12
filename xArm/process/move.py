@@ -7,7 +7,7 @@ import csv
 
 rospy.init_node('xArm6')
 
-file_path = '/home/nishidalab07/github/6dimension/simulation1/Configuration/After_train/allpath/path_4.txt'
+file_path = '/home/nishidalab07/github/6dimension/simulation2/Configuration/After_train/allpath/path_4.txt'
 
 joint_names = ['joint1', 'joint2', 'joint3', 'joint4', 'joint5', 'joint6']
 
