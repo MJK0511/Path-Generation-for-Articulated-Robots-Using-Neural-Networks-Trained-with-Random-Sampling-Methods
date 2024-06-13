@@ -2,7 +2,6 @@ import rospy
 from moveit_commander import RobotCommander
 from moveit_msgs.msg import RobotState
 from moveit_msgs.srv import GetPositionFK, GetPositionFKRequest
-import re
 import os
 
 # waypoints_file = "/home/nishidalab07/github/6dimension/simulation1/extract_train_C/sg.txt"

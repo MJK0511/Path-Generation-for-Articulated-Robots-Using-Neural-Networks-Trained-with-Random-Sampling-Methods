@@ -15,7 +15,7 @@ restrictor = Restriction()
 ## 2-2 1에서 생성한 10000개의 경로 중, 랜덤하게 선택한 100개의 샘플 데이터로부터 15개의 waypoint를 추출
 def generate_sample(default_folder):
     input_path = os.path.join(default_folder, 'Configuration/sample')
-    output_path = os.path.join(default_folder, 'csv')
+    output_path = os.path.join(default_folder, 'csv/before')
 
     # Sample Data
     sample = extractor.trainDF(input_path)
@@ -28,7 +28,7 @@ def generate_sample(default_folder):
 ## 2-4 설정한 범위 내에 존재하는 path를 모두 csv 파일로 저장 : training data의 생성 
 def generate_training_input(default_folder):
     input_path = os.path.join(default_folder, 'Configuration/originpath')
-    output_path = os.path.join(default_folder, 'csv')
+    output_path = os.path.join(default_folder, 'csv/before')
 
     # original data
     train = extractor.trainDF(input_path)
@@ -41,7 +41,7 @@ def generate_training_input(default_folder):
 ## 2-5 test data를 생성 
 def generate_test_input(default_folder):
     input_path = os.path.join(default_folder, 'Configuration/sample')
-    output_path = os.path.join(default_folder, 'csv')
+    output_path = os.path.join(default_folder, 'csv/before')
 
     # TEST Data
     test = extractor.testDF(input_path)

@@ -7,7 +7,7 @@ class Validation:
     def __init__(self, default_folder):
         self.input_path = os.path.join(default_folder, 'Configuration/originpath')
         self.fail_path = os.path.join(default_folder, 'Configuration/fail')
-        self.output_path = os.path.join(default_folder, 'csv/results.csv')
+        self.output_path = os.path.join(default_folder, 'csv/evaluation/results.csv')
         
     def validation(self):
     # 파일 이름과 결과의 쌍을 저장할 리스트
