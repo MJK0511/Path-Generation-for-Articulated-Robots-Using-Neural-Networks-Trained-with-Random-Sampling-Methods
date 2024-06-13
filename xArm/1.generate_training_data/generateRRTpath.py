@@ -13,9 +13,11 @@ from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
 default_folder = "/home/nishidalab07/github/Robot_path_planning_with_xArm/simulation3"
 
-if not rospy.get_node_uri():
-    moveit_commander.roscpp_initialize(sys.argv)
-    rospy.init_node('xArm6')
+class GenerateRRTPath:
+    def __init__(self) -> None:
+        if not rospy.get_node_uri():
+        moveit_commander.roscpp_initialize(sys.argv)
+        rospy.init_node('xArm6')
 
 # Initialize MoveIt Commander
 group = moveit_commander.MoveGroupCommander("xarm6")
