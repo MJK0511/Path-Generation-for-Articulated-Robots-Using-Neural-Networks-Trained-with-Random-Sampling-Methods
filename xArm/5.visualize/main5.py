@@ -26,6 +26,6 @@ def Cartesian_to_Task(default_folder):
 # Cartesian_to_Task(default_folder)
 
 ## 5-3
-file_path = os.path.join(default_folder, 'Task/aftertrain/path1_visual.txt')
-visualization1.visualize_trajectory_points(file_path)
-
+directory_path = os.path.join(default_folder, 'Task/aftertrain')
+# visualization1.visualize_one_path(os.path.join(directory_path, 'path1_visual.txt'))
+visualization1.visualize_all_path(directory_path)
