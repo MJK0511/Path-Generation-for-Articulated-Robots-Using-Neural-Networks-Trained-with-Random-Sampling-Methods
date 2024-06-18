@@ -4,7 +4,7 @@ from validate_result import Validation
 from plot import Plot
 from restriction import Restriction
 
-default_folder = '/home/nishidalab07/github/Robot_path_planning_with_xArm/simulation3'
+default_folder = '/home/nishidalab07/github/Robot_path_planning_with_xArm/simulation1'
 
 validator = Validation(default_folder)
 extractor = ExtractWaypoint()
@@ -55,10 +55,10 @@ def generate_test_input(default_folder):
 
 ## 2-3.
 # 0 : one path, all waypoint, 1 : one waypoint, all path
-# plotter.plot_all_window(1)
+plotter.plot_all_window(1)
 
 ## 2-4. 
 # generate_training_input(default_folder)
 
 ##
-generate_test_input(default_folder)
+# generate_test_input(default_folder)

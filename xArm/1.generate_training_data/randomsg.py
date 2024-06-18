@@ -1,5 +1,4 @@
 import random
-from sg_range import SGrange 
 
 class RandomCoordinatesGenerator:
     def __init__(self):
@@ -23,7 +22,7 @@ class RandomCoordinatesGenerator:
         # simulation2
         # start range a~f
         self.a_sr = [-0.400000000, 0.000000000]
-        self.b_sr = [-1.0000000000, -0.3000000000]
+        self.b_sr = [-0.8000000000, -0.3000000000]
         self.c_sr = [-0.5000000000, 3.860126045296397e-05]
         self.d_sr = [-6.226610678172761e-05, 0.00011172202384379659]
         self.e_sr = [8.343721795662674e-05, 1.0407782478617102]
@@ -31,7 +30,7 @@ class RandomCoordinatesGenerator:
 
         # goal range a~f
         self.a_gr = [-1.2498537471727624, 1.6066508572625366]
-        self.b_gr = [-0.4000000000, -0.1000000000]
+        self.b_gr = [-0.1000000000, 0.1000000000]
         self.c_gr = [-3.0000000000, -2.0000000000]
         self.d_gr = [-3.0000000000, 2.06000000000]
         self.e_gr = [0.8000000000, 1.7000000000]
@@ -59,14 +58,14 @@ class RandomCoordinatesGenerator:
 
         return start, goal
 
-if __name__ == "__main__":
-    # 주어진 범위
-    # 객체 생성
-    generator = RandomCoordinatesGenerator()
+# if __name__ == "__main__":
+#     # 주어진 범위
+#     # 객체 생성
+#     generator = RandomCoordinatesGenerator()
 
-    # 랜덤 좌표 생성
-    start, goal = generator.generate_random_coordinates()
+#     # 랜덤 좌표 생성
+#     start, goal = generator.generate_random_coordinates()
 
-    # 출력
-    print("start:", start)
-    print("goal:", goal)
+#     # 출력
+#     print("start:", start)
+#     print("goal:", goal)

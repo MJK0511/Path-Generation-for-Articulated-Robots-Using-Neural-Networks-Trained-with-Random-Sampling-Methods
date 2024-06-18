@@ -1,11 +1,12 @@
 from sg_range import SGRange
 from moveonepoint import MoveOnePoint
-# from generateRRTpath import GenerateRRTPath
+from generateRRTpath import GenerateRRT
 
 default_path = "/home/nishidalab07/github/Robot_path_planning_with_xArm/simulation2/"
 
 sg_range = SGRange(default_path) 
 moving = MoveOnePoint()
+rrt_generator = GenerateRRT(default_path, time=7)
 
 ## 1-2 
 # sg_range.sgrange()
@@ -21,6 +22,10 @@ moving = MoveOnePoint()
 # g_max
 # goal_positions = [1.6066508572625366, -0.1, -2.0, 2.06, 1.7, 0.6438224568308124]
 
+# test
+# goal_positions = [0.8973413136497992, 0.1, -2.763500692087306, -0.7059470270819488, 1.1236277576136253, 0.3956714078908573]
 # moving.movetopoint(goal_positions)
 
 ## 1-4
+rrt_generator.move_to_sg(count=10000)
+rrt_generator.save_times_csv()
