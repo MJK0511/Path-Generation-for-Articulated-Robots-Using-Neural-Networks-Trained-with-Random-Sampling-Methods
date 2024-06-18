@@ -1,23 +1,19 @@
 from operator import ge
-import os
 from re import T
 import sys
+import csv
 import rospy
 import moveit_commander
-import actionlib
-import csv
 from datetime import datetime
 from randomsg import RandomCoordinatesGenerator
-# from TaskToConfig import TtoC
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
-default_folder = "/home/nishidalab07/github/Robot_path_planning_with_xArm/simulation3"
+default_folder = "/home/nishidalab07/github/Robot_path_planning_with_xArm/simulation"
 
-class GenerateRRTPath:
-    def __init__(self) -> None:
-        if not rospy.get_node_uri():
-        moveit_commander.roscpp_initialize(sys.argv)
-        rospy.init_node('xArm6')
+
+if not rospy.get_node_uri():
+    moveit_commander.roscpp_initialize(sys.argv)
+    rospy.init_node('xArm6')
 
 # Initialize MoveIt Commander
 group = moveit_commander.MoveGroupCommander("xarm6")
@@ -28,7 +24,7 @@ joint_names = group.get_active_joints()
 
 # Create a list to store execute times
 times = []
-count = 10000
+count = 3
 # trajectory = JointTrajectory()
 
 # Get the initial joint values
@@ -37,7 +33,6 @@ group.set_joint_value_target(initial_joint_values)
 
 # 객체 생성
 generatorR = RandomCoordinatesGenerator()
-# generatorC = TtoC()
 
 # Iterate through all txt files in the specified folder
 for i in range(count):
@@ -47,8 +42,8 @@ for i in range(count):
     print("start: ", start)
     print("goal : ", goal)
 
-    # RRT*를 사용하도록 계획 설정
-    group.set_planner_id("RRTstar")  # RRT* 계획 알고리즘을 사용하도록 설정
+    # set RRT*
+    group.set_planner_id("RRTstar")  
 
     # go to start
     plan1 = group.plan(joints=start)

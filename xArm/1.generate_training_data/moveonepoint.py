@@ -44,7 +44,7 @@ class MoveOnePoint:
         else:
             print(f"failed! Error message: {result.error_string}")
 
-goal_positions = [-1.3, 0.2, -0.6, -0.003813281147, 1.0790173902, 0.4641266619]
+# goal_positions = [-1.3, 0.2, -0.6, -0.003813281147, 1.0790173902, 0.4641266619]
 
-moving = MoveOnePoint()
-moving.movetopoint(goal_positions)
+# moving = MoveOnePoint()
+# moving.movetopoint(goal_positions)

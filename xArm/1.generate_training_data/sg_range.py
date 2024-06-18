@@ -1,74 +1,68 @@
-import re
+import os
 import csv
-import os 
+import re
 
-class SGrange:
+class SGRange:
     def __init__(self, default_path):
-        input_path = os.path.join(default_path, "Configuration/startgoal")
-        output_path = os.path.join(default_path, "csv/before")
+        self.start_path = os.path.join(default_path, "Configuration/sg/start")
+        self.goal_path = os.path.join(default_path, "Configuration/sg/goal")
+        self.output_path = os.path.join(default_path, "csv/before")
 
-        data = {"start": [], "goal": []}
-        file_pattern = ["start{}.txt", "goal{}.txt"]
-        columns = ["A", "B", "C", "D", "E", "F"]
+        self.columns = 6
+
+    def read_positions(self, file_path):
+        positions = []
+        pattern = r'positions:\s*(\[.*?\])'
+
+        with open(file_path, 'r') as file:
+            for line in file:
+                match = re.search(pattern, line)
+                if match:
+                    position_line = match.group(1)
+                    position_line = position_line.strip('[').strip(']')  # 대괄호 제거
+                    positions = [float(val.strip()) for val in position_line.split(',')]
+                    break
+
+        return positions
+
+    def read_txt_file(self, directory_path):
+        # Read all txt files in the directory_path
+        list_var = []
+        for file_name in os.listdir(directory_path):
+            if file_name.endswith('.txt'):
+                file_path = os.path.join(directory_path, file_name)
+                positions = self.read_positions(file_path)
+                list_var.extend(positions)
+
+        # Reshape list_var to have self.columns columns
+        list_var = [list_var[i:i + self.columns] for i in range(0, len(list_var), self.columns)]
+
+        # Find the minimum and maximum values in each column of list_var
+        min_vals = [min(col) for col in zip(*list_var)]
+        max_vals = [max(col) for col in zip(*list_var)]
+        
+        return list_var, min_vals, max_vals
+
+    def save_to_csv(self, data, filename):
+        csv_path = os.path.join(self.output_path, filename)
+        with open(csv_path, 'w', newline='') as csv_file:
+            csv_writer = csv.writer(csv_file)
+            csv_writer.writerows(data)
 
     def sgrange(self):
-        for file_type in self.file_pattern:
-            for i in range(1, 9):
-                file_name = file_type.format(i)
-                file_path = os.path.join(self.input_path, file_name)
-                last_positions = None  # 마지막으로 찾은 "positions" 값을 저장하기 위한 변수
+        start, s_min, s_max = self.read_txt_file(self.start_path)
+        goal, g_min, g_max = self.read_txt_file(self.goal_path)
 
-                with open(file_path, "r") as file:
-                    for line in file:
-                        match = re.search(r"positions: \[(.*)\]", line)
-                        if match:
-                            values = match.group(1).split(", ")
-                            values = [float(val) for val in values]
-                            last_positions = values  # 마지막으로 찾은 "positions" 값 저장
+        # Save data to CSV files
+        self.save_to_csv(start, "start.csv")
+        self.save_to_csv(goal, "goal.csv")
 
-                if last_positions is not None:  # 마지막으로 찾은 "positions" 값이 있는 경우에만 추가
-                    if file_type.startswith("start"):
-                        self.data["start"].append(last_positions)
-                    elif file_type.startswith("goal"):
-                        self.data["goal"].append(last_positions)
+        print(f"start_range: {s_min}, {s_max}")
+        print(f"goal_range: {g_min}, {g_max}")
 
-        # 출력 경로 생성
-        os.makedirs(self.output_path, exist_ok=True)
 
-        # CSV 파일 이름
-        csv_file = os.path.join(self.output_path, "sg_range.csv")
 
-        with open(csv_file, "w", newline="") as file:
-            writer = csv.writer(file)
-            
-            # 열 머리글 쓰기
-            header = ["type"] + self.columns
-            writer.writerow(header)
-            
-            # 데이터 쓰기
-            for type, values_list in self.data.items():
-                for value_list in values_list:
-                    row = [type] + value_list
-                    writer.writerow(row)
-            
-            # 최솟값과 최댓값 행 추가
-            for type, values_list in self.data.items():
-                min_values = [min(values) for values in zip(*values_list)]
-                max_values = [max(values) for values in zip(*values_list)]
-            
-            # start와 goal의 최솟값과 최댓값을 변수에 할당
-            s_min, s_max = min_values, max_values
-            if type == "goal":
-                g_min, g_max = min_values, max_values
-            
-            print(f"success! {csv_file} ")
-            print(min_values, max_values)
-
-        # 프로그램을 종료하기 전에 최솟값과 최댓값을 반환
-        return s_min, s_max, g_min, g_max
-
-# 기본 경로
-default_path = "/home/nishidalab07/github/Robot_path_planning_with_xArm/simulation3/"
-s_min, s_max, g_min, g_max = SGrange.sgrange(default_path)
-print(f"start_range:{s_min},{s_max}")
-print(f"goal_range:{g_min},{g_max}")
+# # 기본 경로
+# default_path = "/home/nishidalab07/github/Robot_path_planning_with_xArm/simulation2/"
+# sg_range = SGRange(default_path)
+# sg_range.sgrange()
