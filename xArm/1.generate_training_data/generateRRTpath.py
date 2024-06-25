@@ -4,6 +4,9 @@ import rospy
 import moveit_commander
 from datetime import datetime
 from randomsg import RandomCoordinatesGenerator
+from moveonepoint import MoveOnePoint
+
+moving = MoveOnePoint()
 
 class GenerateRRT:
     def __init__(self, default_folder, time):
@@ -35,12 +38,11 @@ class GenerateRRT:
             print("start: ", start)
             print("goal : ", goal)
 
+            # go to start
+            moving.movetopoint(start)
+
             # set RRT*
             self.group.set_planner_id("RRTstar")  
-
-            # go to start
-            plan1 = self.group.plan(joints=start)
-            self.group.go(wait=True)
 
             # go to goal
             start_time_plan = datetime.now()
@@ -74,6 +76,6 @@ class GenerateRRT:
 
 # if __name__ == "__main__":
 #     default_folder="/home/nishidalab07/github/Robot_path_planning_with_xArm/simulation2"
-#     rrt_generator = GenerateRRT(default_folder, time=7)
+#     rrt_generator = GenerateRRT(default_folder, time=5)
 #     rrt_generator.move_to_sg(count=3)
 #     rrt_generator.save_times_csv()

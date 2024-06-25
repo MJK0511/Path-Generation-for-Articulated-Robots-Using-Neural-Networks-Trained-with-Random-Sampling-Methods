@@ -28,7 +28,7 @@ class Validation:
                     positions_count = sum(1 for line in lines if 'positions' in line)
                     
                     # 결과 결정
-                    if 2 <= positions_count <= 39:
+                    if 15 <= positions_count <= 30:
                         result = 'success'
                     else:
                         result = 'fail'

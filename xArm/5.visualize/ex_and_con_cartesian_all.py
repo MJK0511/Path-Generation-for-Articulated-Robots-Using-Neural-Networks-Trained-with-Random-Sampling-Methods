@@ -90,8 +90,8 @@ class CtoT:
                 print(f"Results saved to {output_file_path}")
 
 
-if __name__ == "__main__":
-    input_folder_path = '/home/nishidalab07/github/6dimension/simulation2/sg'
-    output_folder_path = '/home/nishidalab07/github/6dimension/simulation2/sg'
-    configtotask = CtoT()
-    configtotask.process_files(input_folder_path, output_folder_path)
+# if __name__ == "__main__":
+#     input_folder_path = '/home/nishidalab07/github/6dimension/simulation2/sg'
+#     output_folder_path = '/home/nishidalab07/github/6dimension/simulation2/sg'
+#     configtotask = CtoT()
+#     configtotask.process_files(input_folder_path, output_folder_path)
