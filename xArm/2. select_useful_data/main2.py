@@ -34,6 +34,18 @@ def generate_training_input(default_folder):
     train = extractor.trainDF(input_path)
     train.to_csv(os.path.join(output_path, 'originpath.csv'), index=False)
 
+    #simu1
+    # reference_point = [] # 基準領域
+    # reference_point = [] # 基準点
+    # r = []
+
+    #simu2
+    reference_point = [0.4, 0.0, -1.8, 0.3, 0.8, -0.2] # 基準領域
+    # reference_point = [0.2479901208, -0.07478775499, -1.565567943, 0.2597459845, 0.3580087874, -0.1751613146] # 基準点
+    r = [0.4, 0.4, 0.4] # 範囲
+
+    restrictor.restrict_range(train, reference_point, r)
+
     # Training Data : After restriction
     restricted_train = restrictor.restrict_range(train)
     restricted_train.to_csv(os.path.join(output_path, 'traininginput.csv'), index=False)
@@ -64,4 +76,4 @@ def generate_test_input(default_folder):
 generate_training_input(default_folder)
 
 # ##
-generate_test_input(default_folder)
+# generate_test_input(default_folder)

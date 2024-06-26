@@ -40,10 +40,10 @@ def Cartesian_to_Task(default_folder):
 
 ## 5-3
 # before train
-# directory_path = os.path.join(default_folder, 'Task/beforesample')
+directory_path = os.path.join(default_folder, 'Task/beforesample')
 
 # after train
-directory_path = os.path.join(default_folder, 'Task/aftertrain')
+# directory_path = os.path.join(default_folder, 'Task/aftertrain')
 
-visualization1.visualize_one_path(os.path.join(directory_path, 'path3_visual.txt')) # 5 7 
+visualization1.visualize_one_path(os.path.join(directory_path, 'path7_visual.txt')) # 3 7 
 # visualization1.visualize_all_path(directory_path)

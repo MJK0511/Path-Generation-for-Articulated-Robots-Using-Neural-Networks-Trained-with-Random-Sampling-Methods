@@ -1,23 +1,23 @@
-class Restriction:      
-        def restrict_range(self, df):
-                # #simu1
-                # filtered_rows = (0.0<= df['m1a']) & (df['m1a'] <= 0.8)
-                # filtered_rows = (-0.4 <= df['m1b']) & (df['m1b'] <= 0.2)
-                # filtered_rows = (-2.2 <= df['m1c']) & (df['m1c'] <= -1.6)
-                # filtered_rows = (-0.2 <= df['m1d']) & (df['m1d'] <= -0.6)
-                # filtered_rows = (0.4 <= df['m1e']) & (df['m1e'] <= 1.2)
-                # filtered_rows = (-0.6 <= df['m1f']) & (df['m1f'] <= 0.2)
+class Restriction:
+    def restrict_range(self, df, reference_point, r):
+        # set range
+        [ab, cd, ef] = r
 
-                # output = df[filtered_rows]
+        # Unpack the reference point values
+        m1a, m1b, m1c, m1d, m1e, m1f = reference_point
 
-                #simu2
-                filtered_rows = (0.0<= df['m1a']) & (df['m1a'] <= 0.8)
-                filtered_rows = (-0.4 <= df['m1b']) & (df['m1b'] <= 0.2)
-                filtered_rows = (-2.2 <= df['m1c']) & (df['m1c'] <= -1.6)
-                filtered_rows = (-0.2 <= df['m1d']) & (df['m1d'] <= -0.6)
-                filtered_rows = (0.4 <= df['m1e']) & (df['m1e'] <= 1.2)
-                filtered_rows = (-0.6 <= df['m1f']) & (df['m1f'] <= 0.2)
+        # Calculate the Euclidean distance between (m1a, m1b) and each data point in the dataframe
+        # D = distance between point
+        df['D_ab'] = ((df['m1a'] - m1a) ** 2 + (df['m1b'] - m1b) ** 2) ** 0.5
+        df['D_cd'] = ((df['m1c'] - m1c) ** 2 + (df['m1d'] - m1d) ** 2) ** 0.5
+        df['D_ef'] = ((df['m1e'] - m1e) ** 2 + (df['m1f'] - m1f) ** 2) ** 0.5
 
-                output = df[filtered_rows]
+        # Filter the dataframe to include only points within the specified distance from the reference point
+        filtered_rows = df['D_ab'] <= ab
+        filtered_rows = df['D_cd'] <= cd
+        filtered_rows = df['D_ef'] <= ef
 
-                return output
+        output = df[filtered_rows]
+        print(output.shape)
+
+        return output
