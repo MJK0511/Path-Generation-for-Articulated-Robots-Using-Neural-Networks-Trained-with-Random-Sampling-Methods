@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import os
 import re
 import ast
@@ -8,7 +7,8 @@ class ExtractWaypoint:
     def __init__(self):
         self.waypoint = 17
         self.columns_m = ['m8a', 'm8b', 'm8c', 'm8d', 'm8e', 'm8f', 'm4a', 'm4b', 'm4c', 'm4d', 'm4e', 'm4f', 'm9a', 'm9b', 'm9c', 'm9d', 'm9e', 'm9f', 'm2a', 'm2b', 'm2c', 'm2d', 'm2e', 'm2f', 'm10a', 'm10b', 'm10c', 'm10d', 'm10e', 'm10f', 'm5a', 'm5b', 'm5c', 'm5d', 'm5e', 'm5f', 'm11a', 'm11b', 'm11c', 'm11d', 'm11e', 'm11f', 'm1a', 'm1b', 'm1c', 'm1d', 'm1e', 'm1f', 'm12a', 'm12b', 'm12c', 'm12d', 'm12e', 'm12f', 'm6a', 'm6b', 'm6c', 'm6d', 'm6e', 'm6f', 'm13a', 'm13b', 'm13c', 'm13d', 'm13e', 'm13f', 'm3a', 'm3b', 'm3c', 'm3d', 'm3e', 'm3f', 'm14a', 'm14b', 'm14c', 'm14d', 'm14e', 'm14f', 'm7a', 'm7b', 'm7c', 'm7d', 'm7e', 'm7f', 'm15a', 'm15b', 'm15c', 'm15d', 'm15e', 'm15f']
-        self.columns_s = ['sa', 'sb', 'sc', 'sd', 'se', 'sf']
+        self.columns_s = ['filename']+['sa', 'sb', 'sc', 'sd', 'se', 'sf']
+        # self.columns_s = ['sa', 'sb', 'sc', 'sd', 'se', 'sf']
         self.columns_g = ['ga', 'gb', 'gc', 'gd', 'ge', 'gf']
 
         self.train_columns = self.columns_s+self.columns_m+self.columns_g
@@ -50,8 +50,8 @@ class ExtractWaypoint:
                         for index in m_indices:
                             m_lists.extend(list(ast.literal_eval(matches[index])))
 
-                        # print(m_lists)
-
+                        # filename을 추가
+                        m_lists.insert(0, filename)
                         all_mid.append(tuple(m_lists))
                         m_lists = []
 

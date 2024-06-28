@@ -21,6 +21,11 @@ def generate_sample(default_folder):
     sample = extractor.trainDF(input_path)
     sample.to_csv(os.path.join(output_path, 'samplecheck.csv'), index=False)
 
+    # Training Data : After restriction
+    restricted_train = restrictor.restrict_range(sample)
+    restricted_train.to_csv(os.path.join(output_path, 'traininginput.csv'), index=False) 
+
+
 ## 2-3 2차원 그래프로 plot하여 원하는 경로를 통과하는 path의 범위를 설정
 # plot all window
 # 0 : one path, all waypoint, 1 : one waypoint, all path
@@ -32,23 +37,12 @@ def generate_training_input(default_folder):
 
     # original data
     train = extractor.trainDF(input_path)
-    train.to_csv(os.path.join(output_path, 'originpath.csv'), index=False)
-
-    #simu1
-    # reference_point = [] # 基準領域
-    # reference_point = [] # 基準点
-    # r = []
-
-    #simu2
-    reference_point = [0.4, 0.0, -1.8, 0.3, 0.8, -0.2] # 基準領域
-    # reference_point = [0.2479901208, -0.07478775499, -1.565567943, 0.2597459845, 0.3580087874, -0.1751613146] # 基準点
-    r = [0.4, 0.4, 0.4] # 範囲
-
-    restrictor.restrict_range(train, reference_point, r)
+    # train.to_csv(os.path.join(output_path, 'originpath.csv'), index=False)
+    print(train.shape)
 
     # Training Data : After restriction
     restricted_train = restrictor.restrict_range(train)
-    restricted_train.to_csv(os.path.join(output_path, 'traininginput.csv'), index=False)
+    restricted_train.to_csv(os.path.join(output_path, 'traininginput.csv'), index=False) 
 
 # ## 2-5 test data를 생성 
 def generate_test_input(default_folder):
