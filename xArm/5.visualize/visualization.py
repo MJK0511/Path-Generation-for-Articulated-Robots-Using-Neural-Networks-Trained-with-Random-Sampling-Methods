@@ -86,7 +86,7 @@ class VisualOnePath:
         marker.id = marker_id_offset + len(positions_list) + 1
         marker.type = Marker.LINE_STRIP
         marker.action = Marker.ADD
-        marker.scale.x = 0.01
+        marker.scale.x = 0.005
         marker.color.a = 1.0
         marker.color.r = 0.0
         marker.color.g = 1.0
