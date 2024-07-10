@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
 import pandas as pd
-
+#　トレーニングデータの範囲設定：データクレンジング
 class Restriction:
     def __init__(self):
         self.ma = []

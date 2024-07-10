@@ -1,6 +1,7 @@
 import os
 import matplotlib.pyplot as plt
 import pandas as pd 
+## 2-3 2次元グラフとしてプロットし，望ましい経路を通るパスの範囲を設定
 
 class Plot:
     def __init__(self, default_folder):

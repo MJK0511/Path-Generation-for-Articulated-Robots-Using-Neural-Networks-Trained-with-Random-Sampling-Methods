@@ -2,6 +2,7 @@ import random
 
 class RandomCoordinatesGenerator:
     def __init__(self):
+        # スタートとゴールの範囲の中から乱数を生成
         # simulation1
         # # start range a~f
         self.a_sr = [-0.1658429916135594, 0.437333859097476]
@@ -59,13 +60,11 @@ class RandomCoordinatesGenerator:
         return start, goal
 
 # if __name__ == "__main__":
-#     # 주어진 범위
-#     # 객체 생성
 #     generator = RandomCoordinatesGenerator()
 
-#     # 랜덤 좌표 생성
+#     # 乱数のスタートとゴールを生成
 #     start, goal = generator.generate_random_coordinates()
 
-#     # 출력
+#     # 出力して確認
 #     print("start:", start)
 #     print("goal:", goal)

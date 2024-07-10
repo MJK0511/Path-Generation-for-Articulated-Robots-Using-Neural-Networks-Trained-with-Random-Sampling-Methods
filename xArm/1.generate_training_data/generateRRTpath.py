@@ -6,6 +6,8 @@ from datetime import datetime
 from randomsg import RandomCoordinatesGenerator
 from moveonepoint import MoveOnePoint
 
+## Moveit!を用いて教師データになるパスを生成するプログラム
+
 moving = MoveOnePoint()
 
 class GenerateRRT:
@@ -42,6 +44,7 @@ class GenerateRRT:
             moving.movetopoint(start)
 
             # set RRT*
+            # ここを修正してOMPLのアルゴリズムを選択
             self.group.set_planner_id("RRTstar")  
 
             # go to goal
@@ -75,7 +78,10 @@ class GenerateRRT:
         print(f"Times saved to {csv_filename}")
 
 # if __name__ == "__main__":
+#     ## パスを入れるディレクトリを指定
 #     default_folder="/home/nishidalab07/github/Robot_path_planning_with_xArm/simulation2"
+#     ## RRT*の場合，time(s)を指定して最大生成時間を決める．
 #     rrt_generator = GenerateRRT(default_folder, time=5)
+#     ## countは生成するパスの個数
 #     rrt_generator.move_to_sg(count=3)
 #     rrt_generator.save_times_csv()

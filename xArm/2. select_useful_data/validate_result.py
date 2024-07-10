@@ -10,46 +10,43 @@ class Validation:
         self.output_path = os.path.join(default_folder, 'csv/evaluation/results.csv')
         
     def validation(self):
-    # 파일 이름과 결과의 쌍을 저장할 리스트
         file_results = []
 
-        # input_folder 내의 모든 파일 순회
+        # input_folder 内のすべてのファイルに対して行う
         for filename in sorted(os.listdir(self.input_path)):
-            # 정규 표현식을 사용하여 파일 이름에서 숫자 추출
+            # ファイルの名前からパスの番号を抽出
             match = re.match('path_([0-9]+).txt', filename)
             if match:
-                number = int(match.group(1))  # 숫자를 정수형으로 변환
+                number = int(match.group(1))  # 数字は定数型
                 
-                # 파일 읽기
+                # 読み込み
                 with open(os.path.join(self.input_path, filename), 'r') as infile:
                     lines = infile.readlines()
                     
-                    # positions 개수 세기
+                    # positionsの個数を数える
                     positions_count = sum(1 for line in lines if 'positions' in line)
                     
-                    # 결과 결정
+                    # 成功化失敗かを決める
                     if 15 <= positions_count <= 30:
                         result = 'success'
                     else:
                         result = 'fail'
                         
-                        # 결과 출력
+                        # 結果を出力
                         print(f'File: {filename}, Positions: {positions_count}, Result: {result}')
                         
-                        # 파일 이름과 결과를 리스트에 추가
+                        # ファイル名と結果をリストに追加
                         file_results.append((number, positions_count, result))
                         
-                        # fail인 경우 파일을 fail 폴더로 이동
+                        # 失敗したパスはfailディレクトリに移動
                         if result == 'fail':
                             shutil.move(os.path.join(self.input_path, filename), os.path.join(self.fail_path, filename))
 
-        # 파일 이름과 결과를 정렬하여 CSV 파일에 쓰기
+        # csvとして生成
         with open(self.output_path, 'w', newline='') as csvfile:
             csvwriter = csv.writer(csvfile)
             
-            # 헤더 쓰기
             csvwriter.writerow(['filename', 'positions', 'result'])
             
-            # 정렬된 파일 이름과 결과 쓰기
             for number, positions_count, result in sorted(file_results, key=lambda x: x[0]):
                 csvwriter.writerow([f'path_{number:04d}.txt', positions_count, result])

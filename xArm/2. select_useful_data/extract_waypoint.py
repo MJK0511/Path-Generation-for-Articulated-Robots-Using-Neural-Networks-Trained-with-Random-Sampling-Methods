@@ -2,7 +2,7 @@ import os
 import re
 import ast
 import pandas as pd
-
+# 15個のウェイポイントを抽出するプログラム
 class ExtractWaypoint:
     def __init__(self):
         self.waypoint = 17

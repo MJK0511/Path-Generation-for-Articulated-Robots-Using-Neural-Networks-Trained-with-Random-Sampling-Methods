@@ -1,7 +1,7 @@
 import os
 import csv
 import numpy as np
-
+# パスの長さを測る：ロボットの手先の移動距離
 class Distance:
     def calculate_distance(self, point1, point2):
         point1 = np.array(point1[:3])
@@ -47,20 +47,17 @@ class Distance:
     def calculate(self,folder_path, csv_file_path):
         result = self.calculate_total_distances_in_folder(folder_path)
         
-        # 총 거리 리스트 추출
         total_distances = [distance for _, distance in result]
-        
-        # 평균 및 분산 계산
+        # 距離の平均，分散を計算
         mean_distance, variance_distance = self.calculate_mean_and_variance(total_distances)
-        
-        # 결과에 평균 및 분산 추가
+
         result.append(('Average', mean_distance))
         result.append(('Variance', variance_distance))
         
         self.save_to_csv(result, csv_file_path)
         
 
-# 주어진 폴더의 경로
+# メインディレクトリを設定
 default_folder = '/home/nishidalab07/github/Robot_path_planning_with_xArm/simulation1'
 # input_path = os.path.join(default_folder, 'Task/beforesample') # RRT* sample 100 
 input_path = os.path.join(default_folder, 'Task/aftertrain/point') # after train 100 # all, point, area

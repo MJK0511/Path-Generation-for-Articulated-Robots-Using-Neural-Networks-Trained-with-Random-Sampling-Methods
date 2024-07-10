@@ -1,12 +1,11 @@
 import os
 import pandas as pd
-
+#　csvの出力をtxtに変える
 class CsvtoTxt:
     def csv_to_txt(self, csv_file_path, output_dir):
         df = pd.read_csv(csv_file_path, header=None)
         
         for i in range(1, len(df)):
-            # 각 행에 대해 새 파일 생성
             file_name = f"path{i}.txt"
             output_file_path = os.path.join(output_dir, file_name)
             

@@ -3,7 +3,7 @@ from moveit_commander import RobotCommander
 from moveit_msgs.msg import RobotState
 from moveit_msgs.srv import GetPositionFK, GetPositionFKRequest
 import os
-
+# C空間座標をT空間座標に変換する．ここで，T空間座標が示すのはロボットの手先の位置を意味する．
 # waypoints_file = "/home/nishidalab07/github/6dimension/simulation1/extract_train_C/sg.txt"
 
 class Pose:

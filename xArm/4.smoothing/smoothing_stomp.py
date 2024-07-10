@@ -5,6 +5,7 @@ import moveit_commander
 from moveit_commander import RobotCommander,MoveGroupCommander
 from moveonepoint import MoveOnePoint
 
+# 修正中です
 moving = MoveOnePoint()
 
 class Smoothing:

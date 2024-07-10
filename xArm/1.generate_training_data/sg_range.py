@@ -1,6 +1,7 @@
 import os
 import csv
 import re
+# スタートとゴールの範囲を確認するプログラム
 
 class SGRange:
     def __init__(self, default_path):

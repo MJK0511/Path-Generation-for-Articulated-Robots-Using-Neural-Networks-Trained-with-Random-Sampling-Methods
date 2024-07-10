@@ -28,15 +28,16 @@ def Cartesian_to_Task(default_folder):
     output_path = os.path.join(default_folder, 'Task/aftertrain')
 
     cartesian.process_files(input_path, output_path)
-
+    
+# 基本ディレクトリの指定
 default_folder = '/home/nishidalab07/github/Robot_path_planning_with_xArm/simulation1'
-# # 5-1
+# # 5-1　CSVの出力をTxtに変換
 # Csv_to_Txt(default_folder)
 
-# # 5-2
+# # 5-2　ロボットの手先のT空間座標を獲得
 # Cartesian_to_Task(default_folder)
 
-## 5-3
+## 5-3　視覚化する
 # before train
 # directory_path = os.path.join(default_folder, 'Task/beforesample')
 

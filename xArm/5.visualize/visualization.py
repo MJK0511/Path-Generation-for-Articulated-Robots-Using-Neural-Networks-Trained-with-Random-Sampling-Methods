@@ -3,7 +3,7 @@ import os
 import rospy
 from visualization_msgs.msg import Marker, MarkerArray
 from geometry_msgs.msg import Pose
-
+# 視覚化プログラム
 class VisualOnePath:
     def set_pose(self, pose_tuple):
         pose = Pose()
@@ -99,68 +99,68 @@ class VisualOnePath:
         marker_array.markers.append(marker)
         return marker_array
 
-    # 하나의 경로만 표시하는 함수
+    # １つのパスだけを表示する
     def visualize_one_path(self, file_path):
         rospy.init_node("visualize_path")
 
-        # 파일에서 위치 데이터를 읽어 리스트에 저장
+        # ファイルからデータを読み込み，リストに入れる
         with open(file_path) as file:
             positions_list = [ast.literal_eval(line) for line in file]
 
-        # 마커 퍼블리셔
+        # マーカをpublish
         marker_pub = rospy.Publisher("visualization_path", MarkerArray, queue_size=10)
-        rospy.sleep(1)  # 퍼블리셔의 셋업 대기
+        rospy.sleep(1)
 
         marker_array = self.append_marker_array(positions_list)
         marker_pub.publish(marker_array)
 
         rospy.spin()
 
-    # 모든 경로를 1초씩 보여주는 함수
+    # すべてのパスを1秒ごときに表示
     def visualize_all_path_1sec(self, directory_path):
         rospy.init_node("visualize_path")
 
-        # 디렉토리 내의 모든 txt 파일 읽기
+        # すべてのtxtを読み込み
         file_paths = [os.path.join(directory_path, file) for file in os.listdir(directory_path) if file.endswith(".txt")]
 
-        # 마커 퍼블리셔
+        # マーカをpublish
         marker_pub = rospy.Publisher("visualization_path", MarkerArray, queue_size=10)
-        rospy.sleep(1)  # 퍼블리셔의 셋업 대기
+        rospy.sleep(1)  
 
         for file_path in file_paths:
-            # 파일에서 위치 데이터를 읽어 리스트에 저장
+            # ファイルからデータを読み込み，リストに入れる
             with open(file_path) as file:
                 positions_list = [ast.literal_eval(line) for line in file]
 
             marker_array = self.append_marker_array(positions_list)
             marker_pub.publish(marker_array)
-            rospy.sleep(1.0)  # 마커 퍼블리시 후 잠시 대기
+            rospy.sleep(1.0)
 
         rospy.spin()
 
-    # 모든 경로를 한번에 표시하는 함수
+    # すべてのパスを1回に表示
     def visualize_all_path(self, directory_path):
         rospy.init_node("visualize_path")
 
-        # 디렉토리 내의 모든 txt 파일 읽기
+        # すべてのtxtを読み込み
         file_paths = [os.path.join(directory_path, file) for file in os.listdir(directory_path) if file.endswith(".txt")]
 
-        # 마커 퍼블리셔
+        # マーカをpublish
         marker_pub = rospy.Publisher("visualization_path", MarkerArray, queue_size=10)
-        rospy.sleep(1)  # 퍼블리셔의 셋업 대기
+        rospy.sleep(1)  
 
-        marker_id_offset = 0  # 마커 ID 오프셋 초기화
+        marker_id_offset = 0  # マーカID初期化
 
-        # 각 파일별로 데이터를 마커로 퍼블리시
+        # 各ファイル別にデータをマーカpublish
         for i, file_path in enumerate(file_paths):
             with open(file_path) as file:
                 positions_list = [ast.literal_eval(line) for line in file]
 
             marker_array = self.append_marker_array(positions_list, marker_id_offset)
             marker_pub.publish(marker_array)
-            marker_id_offset += len(positions_list) + 2  # 마커 ID 오프셋 업데이트
+            marker_id_offset += len(positions_list) + 2  # マーカIDオフセットアップデート
 
             rospy.loginfo(f"Published markers for file {i + 1}/{len(file_paths)}")
-            rospy.sleep(0.5)  # 퍼블리시 후 잠시 대기
+            rospy.sleep(0.5) 
 
         rospy.spin()
