@@ -58,10 +58,10 @@ class Distance:
         
 
 # メインディレクトリを設定
-default_folder = '/home/nishidalab07/github/Robot_path_planning_with_xArm/simulation1'
+default_folder = '/home/nishidalab07/github/Robot_path_planning_with_xArm/simulation2'
 # input_path = os.path.join(default_folder, 'Task/beforesample') # RRT* sample 100 
-input_path = os.path.join(default_folder, 'Task/aftertrain/point') # after train 100 # all, point, area
-output_path = os.path.join(default_folder, 'csv/evaluation/distance_train.csv')
+input_path = os.path.join(default_folder, 'Task/aftertrain') # after train 100 # all, point, area
+output_path = os.path.join(default_folder, 'csv/evaluation/distance_train_v2.csv')
 
 
 calculator = Distance()

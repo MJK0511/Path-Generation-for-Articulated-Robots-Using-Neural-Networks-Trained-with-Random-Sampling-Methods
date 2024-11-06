@@ -17,6 +17,7 @@ import os
 import pandas as pd
 import numpy as np
 import tensorflow as tf
+import openpyxl
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.neural_network import MLPRegressor
 from sklearn.metrics import mean_squared_error
@@ -25,9 +26,9 @@ import matplotlib.pyplot as plt
 import time
 
 # データ読み込み
-default_folder = '/content/drive/MyDrive/2024kenkyu/simulation1'
-# training_file = os.path.join(default_folder, 'traininginput.csv') #
-training_file = os.path.join(default_folder, 'originpath.csv') #
+default_folder = '/content/drive/MyDrive/2024kenkyu/simulation2'
+training_file = os.path.join(default_folder, 'traininginput.csv') #
+# training_file = os.path.join(default_folder, 'originpath.csv') #
 test_file = os.path.join(default_folder, 'testinput.csv')
 
 def train_and_evaluate_model(X, y, epochs, model_name):
@@ -38,7 +39,7 @@ def train_and_evaluate_model(X, y, epochs, model_name):
     learning_rate = 0.001
 
     # 訓練データ・検証データに分割
-    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.5, random_state=42)
+    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.1, random_state=42)
 
     # NaN 値は平均値として入れる
     X_train = X_train.fillna(X_train.mean())
@@ -55,7 +56,7 @@ def train_and_evaluate_model(X, y, epochs, model_name):
         activation='relu',
         solver='adam',
         learning_rate_init=learning_rate,
-        max_iter=10,
+        max_iter=1,
         random_state=42,
         warm_start=True
     )
@@ -88,7 +89,7 @@ def train_and_evaluate_model(X, y, epochs, model_name):
     plt.legend()
     plt.show()
 
-    return model
+    return model, train_losses, val_losses
 
 # Training Data 読み込み
 df = pd.read_csv(training_file)
@@ -125,25 +126,63 @@ X[12] = df[y_col[5] + y_col[2]]
 X[13] = df[y_col[2] + y_col[6]]
 X[14] = df[y_col[6] + g_col]
 
+# モデルを訓練し、エポックごとの損失をExcelファイルに出力する
 models = {}  # モデルをディクショナリに入れる
-# epochs = [20, 15, 22, 15, 18, 21, 22, 13, 15, 18, 20, 22, 22, 25, 25] #simu1
-# epochs = [20, 35, 12, 5, 40, 35, 30, 5, 30, 25, 40, 45, 28, 20, 35] #simu2
-epochs = 10
+epochs = 2000  # エポック数
+
+# Excelファイルを作成
+output_file = os.path.join(default_folder, 'model_training_results_task2.xlsx')
+writer = pd.ExcelWriter(output_file, engine='openpyxl')
+
+for i in range(0, 15):
+    # モデル名
+    model_name = 'Model' + str(i)
+
+    # 訓練 (train_and_evaluate_modelからエポックごとの損失を取得)
+    model, train_losses, val_losses = train_and_evaluate_model(X[i], y[i], epochs, model_name=model_name)
+
+    # モデルをディクショナリに保存
+    models[model_name] = model
+
+    # DataFrameにエポックごとの損失を保存
+    data = {
+        'Epoch': list(range(1, epochs + 1)),
+        'Train Loss': train_losses,
+        'Validation Loss': val_losses
+    }
+    df = pd.DataFrame(data)
+
+    # 各モデルごとに新しいシートにデータを書き込む
+    sheet_name = f'Model {i}'
+    df.to_excel(writer, sheet_name=sheet_name, index=False)
+
+    print(f"{model_name} losses saved to sheet '{sheet_name}'.")
+
+# 全てのモデルのデータを書き込んだら、ファイルを保存
+writer.close()
+print(f"All model losses saved to {output_file}.")
+
+#　各モデルごとにエポックを決めて学習
+models = {}  # モデルディクショナリ
+# epochs = [322, 389, 311, 216, 502, 973, 317, 211, 216, 254, 416, 317, 308, 353, 319]  # simu1
+epochs = [384, 215, 231, 353, 452, 259, 239, 316, 209, 273, 373, 230, 231, 478, 231]  # simu2
 
 for i in range(0, 15):
 
     # モデル名
     model_name = 'Model' + str(i)
 
-    # 訓練
-    model = train_and_evaluate_model(X[i], y[i], epochs, model_name=model_name)
-    # model = train_and_evaluate_model(X[i], y[i], epochs[i], model_name=model_name)
+    # トレーニング
+    model = train_and_evaluate_model(X[i], y[i], epochs[i], model_name=model_name)
+
+    # トレーニング後，エラーを計算
+    # error = mean_squared_error(y[i], model.predict(X[i]))
 
     # モデルをディクショナリに入れる
     models[model_name] = model
     print(f"{model_name} trained.")
 
-# 学習が終わったらプリント
+# トレーニング完了表示
 print("All models trained.")
 
 # テストデータ読み込み
@@ -177,7 +216,9 @@ t_X[14] = test_df[y_col[6] + g_col]
 losses = []
 predictions = []
 
-for i, (model_name, model) in enumerate(models.items()):
+for i, (model_name, model_tuple) in enumerate(models.items()):
+    model = model_tuple[0]  # モデルだけを取り出す
+
     print(f"Testing {model_name}:")
 
     # テストデータ正規化
@@ -235,4 +276,4 @@ all_predictions = pd.concat(ordered_predictions, axis=1)
 all_combined = pd.concat([test_df[s_col], all_predictions, test_df[g_col]], axis=1)
 
 # 結果をcsvで出力
-all_combined.to_csv(f"{default_folder}/after_train.csv", index=False) # all path
+all_combined.to_csv(f"{default_folder}/after_train__.csv", index=False) # all path

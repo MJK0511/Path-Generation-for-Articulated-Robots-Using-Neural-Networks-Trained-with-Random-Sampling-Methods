@@ -13,12 +13,13 @@ rrt_generator = GenerateRRT(default_path, time=3)
 
 ## 1-3
 # goal_positions = [  ]
-# goal_positions = [-1.1590851893861092,-0.2729246527012283,-0.1090631356266123,-0.0038132811469293315,0.38246519188944855,0.39067986614253175]
-# moving.movetopoint(goal_positions)
+# goal_positions = [-0.1658429916135594,-0.1399699608363802,-0.5099227445917747,-0.0005763882525579187,0.0,0.0]
+goal_positions = [0.4467361857,-0.830376887,-0.1996697764,0.0006442090079,1.031491059,0.4468273788]
+moving.movetopoint(goal_positions)
 
 ## 1-4
-rrt_generator.move_to_sg(count=10000)
-rrt_generator.save_times_csv()
+# rrt_generator.move_to_sg(count=10000)
+# rrt_generator.save_times_csv()
 
 # simulation1
 # start_range

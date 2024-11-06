@@ -19,7 +19,7 @@ class VisualOnePath:
     def append_marker_array(self, positions_list, marker_id_offset=0):
         marker_array = MarkerArray()
 
-        # Add red sphere for the first coordinate
+        # Add start sphere for the first coordinate
         first_pose = self.set_pose(positions_list[0])
         first_marker = Marker()
         first_marker.header.frame_id = "world"
@@ -38,8 +38,8 @@ class VisualOnePath:
         first_marker.color.b = 0.0
         marker_array.markers.append(first_marker)
 
-        # Add gray spheres for intermediate coordinates
-        intermediate_scale = 0.01
+        # Add middle spheres for intermediate coordinates
+        intermediate_scale = 0.02
         for i, position in enumerate(positions_list[1:-1]):
             intermediate_pose = self.set_pose(position)
             intermediate_marker = Marker()
@@ -54,12 +54,12 @@ class VisualOnePath:
             intermediate_marker.scale.y = intermediate_scale
             intermediate_marker.scale.z = intermediate_scale
             intermediate_marker.color.a = 1.0
-            intermediate_marker.color.r = 0.5
-            intermediate_marker.color.g = 0.5
-            intermediate_marker.color.b = 0.5
+            intermediate_marker.color.r = 0.9
+            intermediate_marker.color.g = 0.9
+            intermediate_marker.color.b = 0.0
             marker_array.markers.append(intermediate_marker)
 
-        # Add blue sphere for the last coordinate
+        # Add goal sphere for the last coordinate
         last_pose = self.set_pose(positions_list[-1])
         last_marker = Marker()
         last_marker.header.frame_id = "world"

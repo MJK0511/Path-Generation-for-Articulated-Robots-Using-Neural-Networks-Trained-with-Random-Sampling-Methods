@@ -28,9 +28,9 @@ def Cartesian_to_Task(default_folder):
     output_path = os.path.join(default_folder, 'Task/aftertrain')
 
     cartesian.process_files(input_path, output_path)
-    
+
 # 基本ディレクトリの指定
-default_folder = '/home/nishidalab07/github/Robot_path_planning_with_xArm/simulation1'
+default_folder = '/home/nishidalab07/github/Robot_path_planning_with_xArm/simulation2'
 # # 5-1　CSVの出力をTxtに変換
 # Csv_to_Txt(default_folder)
 
@@ -42,8 +42,8 @@ default_folder = '/home/nishidalab07/github/Robot_path_planning_with_xArm/simula
 # directory_path = os.path.join(default_folder, 'Task/beforesample')
 
 # after train # all, area, point
-directory_path = os.path.join(default_folder, 'Task/aftertrain/point')
+directory_path = os.path.join(default_folder, 'Task/aftertrain')
 
-# visualization1.visualize_one_path(os.path.join(directory_path, 'path2_visual.txt')) # 2
+# visualization1.visualize_one_path(os.path.join(directory_path, 'path20_visual.txt')) # 1-8, 
 # visualization1.visualize_all_path_1sec(directory_path)
 visualization1.visualize_all_path(directory_path)
