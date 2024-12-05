@@ -46,7 +46,8 @@ class MoveOnePoint:
             print(f"failed! Error message: {result.error_string}")
 
 #移動したいポイントの関節角度を入力
-goal_positions = [-0.0757597751047898, -0.0855379354935719, -0.3967935455350373, 0.0007703124332953, 0.4147338313256012, 0.3060854672165192]
+goal_positions = [0.2524666986781493, -0.6188471550762134, -0.40597712494648136, -0.24351973994673062, 1.1285115285626344, -2.7927522001679246]
+
 
 moving = MoveOnePoint()
 moving.movetopoint(goal_positions)

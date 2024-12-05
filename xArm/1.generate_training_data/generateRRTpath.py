@@ -3,12 +3,13 @@ import csv
 import rospy
 import moveit_commander
 from datetime import datetime
-from randomsg import RandomCoordinatesGenerator
 from moveonepoint import MoveOnePoint
+from randomsg_3d import RandomSG
 
 ## Moveit!を用いて教師データになるパスを生成するプログラム
 
 moving = MoveOnePoint()
+randomsg = RandomSG()
 
 class GenerateRRT:
     def __init__(self, default_folder, time):
@@ -28,15 +29,17 @@ class GenerateRRT:
         # Get the initial joint values
         self.initial_joint_values = self.group.get_current_joint_values()
         self.group.set_joint_value_target(self.initial_joint_values)
-        
-        # Create an instance of RandomCoordinatesGenerator
-        self.generatorR = RandomCoordinatesGenerator()
 
-    def move_to_sg(self, count):
+        
+    def move_to_sg(self, count, start_range, goal_range):
         for i in range(count):
             print("Processing:", i)
 
-            start, goal = self.generatorR.generate_random_coordinates()
+            s_x, s_y, s_z = randomsg.generate_random_coordinates(start_range)
+            g_x, g_y, g_z = randomsg.generate_random_coordinates(goal_range)
+            start = randomsg.inverse_kinematics(s_x, s_y, s_z)
+            goal = randomsg.inverse_kinematics(g_x, g_y, g_z)
+            
             print("start: ", start)
             print("goal : ", goal)
 
